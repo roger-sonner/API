@@ -49,14 +49,15 @@ public class NotaFiscalController {
     @Transactional
     public ResponseEntity<NotaFiscalDto> postNotaFiscal(@RequestBody @Valid NotaFiscalForm form, UriComponentsBuilder uriBuilder) {
         Optional<Cliente> optional = clienteRepository.findById(form.getClienteId());
-        if (optional.isPresent()) {
-            NotaFiscal notaFiscal = form.converterNotaFiscal(clienteRepository);
-            notaFiscalRepository.save(notaFiscal);
-
-            URI uri = uriBuilder.path("/notasFiscais/{id}").buildAndExpand(notaFiscal.getId()).toUri();
-            return ResponseEntity.created(uri).body(new NotaFiscalDto(notaFiscal, notaFiscal.getCliente()));
+        if (!optional.isPresent()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        NotaFiscal notaFiscal = form.converterNotaFiscal(clienteRepository);
+        notaFiscalRepository.save(notaFiscal);
+
+        URI uri = uriBuilder.path("/notasFiscais/{id}").buildAndExpand(notaFiscal.getId()).toUri();
+        return ResponseEntity.created(uri).body(new NotaFiscalDto(notaFiscal, notaFiscal.getCliente()));
+
     }
 
     @PutMapping("/{id}")

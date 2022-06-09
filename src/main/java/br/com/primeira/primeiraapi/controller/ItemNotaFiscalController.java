@@ -25,7 +25,6 @@ import java.util.Optional;
 @RequestMapping(value = "/itensNotaFiscal")
 public class ItemNotaFiscalController {
 
-    private boolean testeErro = false;
     @Autowired
     private ItemNotaFiscalRepository itemNotaFiscalRepository;
 
@@ -58,15 +57,19 @@ public class ItemNotaFiscalController {
         Optional<Produto> optionalProduto = produtoRepository.findById(form.getProdutoId());
         Optional<NotaFiscal> optionalNotaFiscal = notaFiscalRepository.findById(form.getNotaFiscalId());
 
+        Double quantidade = form.getQuantidade();
+        if((quantidade == null) || (quantidade <= 0.0)){
+            quantidade = 1.0;
+        }
+
         if (optionalProduto.isPresent() && optionalNotaFiscal.isPresent()) {
             ItemNotaFiscal itemNotaFiscal = form.converterItemNotaFiscal(
                     produtoRepository, form.getProdutoId(),
                     notaFiscalRepository, form.getNotaFiscalId());
 
-
             // Calcula o valor total com base na quantidade e valor unitário do produto
-            itemNotaFiscal.setValorTotal(CalculaValorTotal(optionalProduto.get().getValorUnitario(), form.getQuantidade()));
-
+            itemNotaFiscal.setValorTotal(CalculaValorTotal(optionalProduto.get().getValorUnitario(), quantidade));
+            itemNotaFiscal.setQuantidade(quantidade);
             itemNotaFiscalRepository.save(itemNotaFiscal);
 
             URI uri = uriBuilder.path("/itensNotaFiscal/{id}").buildAndExpand(itemNotaFiscal.getId()).toUri();
@@ -85,103 +88,37 @@ public class ItemNotaFiscalController {
 
         Long itemNotaFiscalId = form.getItemNotaFiscalId();
         Long produtoId = form.getProdutoId();
-        Long oldProdutoId = null;
         Integer sequencial = form.getSequencial();
-        Integer oldSequencial = null;
         Double quantidade = form.getQuantidade();
-        Double oldQuantidade = null;
-
-        System.out.println("==> putItemNotafiscalNovo <==");
-        System.out.println("itemNotaFiscalId -> " + form.getItemNotaFiscalId());
-        System.out.println("produtoId -> " + form.getProdutoId());
-        System.out.println("novoProdutoId -> " + form.getNovoProdutoId());
-        System.out.println("sequencial -> " + form.getSequencial());
-        System.out.println("novoSequencial -> " + form.getNovoSequencial());
-        System.out.println("quantidade -> " + form.getQuantidade());
-        System.out.println("novaQuantidade -> " + form.getNovaQuantidade());
 
         Optional<ItemNotaFiscal> optionalItemNotaFiscal = itemNotaFiscalRepository.findById(itemNotaFiscalId);
         if(!optionalItemNotaFiscal.isPresent()){
-            System.out.println("NÃO ENCONTREI O ITEM DA NOTA FICAL NA TABELA");
-            testeErro = true;
             return ResponseEntity.notFound().build();
         }
 
         Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
         if (!optionalProduto.isPresent()) {
-            System.out.println("ENTREI NA CONDIÇÃO DE PRODUTO NÃO ENCONTRADO OU NULO");
-            testeErro = true;
             produtoId = optionalItemNotaFiscal.get().getProduto().getId();
+            optionalProduto = produtoRepository.findById(produtoId);
         }
 
         if((sequencial == null) || (sequencial <= 0)){
-            System.out.println("SEQUENCIAL NULO OU MENOR OU IGUAL A ZERO");
-            testeErro = true;
             sequencial = optionalItemNotaFiscal.get().getSequencial();
         }
         if((quantidade == null) || (quantidade <= 0)){
-            System.out.println("QUANTIDADE NULA OU MENOR OU IGUAL A ZERO");
-            testeErro = true;
             quantidade = optionalItemNotaFiscal.get().getQuantidade();
         }
 
-        if(testeErro){
-            System.out.println("**********************************");
-            System.out.println("**********************************");
-            System.out.println("=> TEM COISA ERRADA LÁ EM CIMA <=");
-            System.out.println("**********************************");
-            System.out.println("**********************************");
-        }
-
-
-        return ResponseEntity.notFound().build();
-
-//        ItemNotaFiscal itemNotaFiscal = form.atualizar(itemNotaFiscalId,
-//                itemNotaFiscalRepository,
-//                produtoRepository,
-//                produtoId,
-//                CalculaValorTotal(optionalProduto.get().getValorUnitario(), quantidade),
-//                sequencial,
-//                quantidade);
-//        return ResponseEntity.ok(new ItemNotaFiscalDto(itemNotaFiscal));
+        ItemNotaFiscal itemNotaFiscal = form.atualizar(itemNotaFiscalId,
+                itemNotaFiscalRepository,
+                produtoRepository,
+                produtoId,
+                CalculaValorTotal(optionalProduto.get().getValorUnitario(), quantidade),
+                sequencial,
+                quantidade);
+        return ResponseEntity.ok(new ItemNotaFiscalDto(itemNotaFiscal));
     }
 
-    @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity<ItemNotaFiscalDto> putItemNotaFiscal(@PathVariable
-                                                               Long itemNotaFiscalId,
-                                                               Long produtoId,
-                                                               Integer sequencial,
-                                                               Double quantidade,
-                                                               @RequestBody @Valid putItemNotaFiscalForm form) {
-
-        System.out.println("itemNotaFiscalId -> " + itemNotaFiscalId);
-        System.out.println("produtoId -> " + produtoId);
-        System.out.println("sequencial -> " + sequencial);
-        System.out.println("quantidade -> " + quantidade);
-
-        return ResponseEntity.notFound().build();
-//
-//        Optional<ItemNotaFiscal> optionalItemNotaFiscal = itemNotaFiscalRepository.findById(itemNotaFiscalId);
-//        Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
-//        if ((!optionalItemNotaFiscal.isPresent() && !optionalProduto.isPresent())) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        if((sequencial == null) || (sequencial <= 0)) {
-//            sequencial = optionalItemNotaFiscal.get().getSequencial();
-//        }
-//        if((quantidade == null) || (quantidade <= 0 ) ){
-//            quantidade = optionalItemNotaFiscal.get().getQuantidade();
-//        }
-//        ItemNotaFiscal itemNotaFiscal = form.atualizar(itemNotaFiscalId,
-//                itemNotaFiscalRepository,
-//                produtoRepository,
-//                produtoId,
-//                CalculaValorTotal(optionalProduto.get().getValorUnitario(), quantidade),
-//                sequencial,
-//                quantidade);
-//        return ResponseEntity.ok(new ItemNotaFiscalDto(itemNotaFiscal));
-    }
 
     @DeleteMapping("/{id}")
     @Transactional

@@ -24,7 +24,6 @@ public class NotaFiscalDto {
         this.id = notaFiscal.getId();
         this.numero = notaFiscal.getNumero();
         this.cliente = cliente.getId();
-        this.itemNotaFiscal = notaFiscal.getItemNotaFiscal();
         this.data = notaFiscal.getData();
 
     }
