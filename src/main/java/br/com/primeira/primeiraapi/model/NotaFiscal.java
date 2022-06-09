@@ -1,10 +1,14 @@
 package br.com.primeira.primeiraapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class NotaFiscal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

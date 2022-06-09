@@ -25,42 +25,49 @@ public class ItemNotaFiscal {
     }
 
     public Integer getSequencial() {
+
         return sequencial;
     }
 
     public void setSequencial(Integer sequencial) {
+
         this.sequencial = sequencial;
     }
 
     public Produto getProduto() {
+
         return produto;
     }
 
     public void setProduto(Produto produto) {
+
         this.produto = produto;
     }
 
     public Double getQuantidade() {
+
         return quantidade;
     }
 
     public void setQuantidade(Double quantidade) {
+
         this.quantidade = quantidade;
     }
 
     public BigDecimal getValorTotal() {
+
         return valorTotal;
     }
 
     public void setValorTotal() {
-        this.valorTotal =  produto
+        this.valorTotal = produto
                 .getValorUnitario()
                 .multiply(new BigDecimal(this.quantidade));
     }
 
-//    public void setValorTotal(BigDecimal valorTotal) {
-//        this.valorTotal = valorTotal;
-//    }
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 
     public NotaFiscal getNotaFiscal() {
         return notaFiscal;
