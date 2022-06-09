@@ -12,6 +12,7 @@ public class NotaFiscal {
     private Long numero;
     @ManyToOne
     private Cliente cliente;
+    //@OneToMany(mappedBy = "notaFiscal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "notaFiscal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ItemNotaFiscal> itemNotaFiscal;
     private LocalDate data;

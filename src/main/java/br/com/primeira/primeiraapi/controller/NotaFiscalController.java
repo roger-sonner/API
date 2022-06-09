@@ -6,7 +6,6 @@ import br.com.primeira.primeiraapi.dto.NotaFiscalDto;
 import br.com.primeira.primeiraapi.model.Cliente;
 import br.com.primeira.primeiraapi.model.NotaFiscal;
 import br.com.primeira.primeiraapi.repository.ClienteRepository;
-import br.com.primeira.primeiraapi.repository.ItemNotaFiscalRepository;
 import br.com.primeira.primeiraapi.repository.NotaFiscalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
