@@ -1,4 +1,11 @@
 # 1-API-Rest-Spring
+
+# O application.properties esta pré configurado para MySQL 
+# Criar o Bando de dados manualmente (CREATE DATABASE primeiraapi;)
+
+
+
+# Instruções
 # Para Get de todos os clientes usar a URl de modelo abaixo:
 http://localhost:8080/clientes
 **************************************************************************************************
