@@ -43,6 +43,7 @@ public class ItemNotaFiscalController {
 
     @GetMapping("/{id}")  // @PathVariable indica que o parametro vem na url
     public ResponseEntity<ItemNotaFiscal> getItemNotaFiscal(@PathVariable Long id) {  // o parametro no GetMapping deve ter o mesmo do método (ex: sgetCliente(Long id))
+
         Optional<ItemNotaFiscal> optional = itemNotaFiscalRepository.findByNotaFiscalId(id);
         if (!optional.isPresent()) {
             return ResponseEntity.notFound().build();
