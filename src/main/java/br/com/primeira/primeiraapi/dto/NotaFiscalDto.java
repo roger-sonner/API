@@ -16,9 +16,10 @@ public class NotaFiscalDto {
     private LocalDate data;
 
     public NotaFiscalDto(){
-
     }
 
+    public NotaFiscalDto(NotaFiscal notaFiscal) {
+    }
     public NotaFiscalDto(NotaFiscal notaFiscal, Cliente cliente){
         this.id = notaFiscal.getId();
         this.numero = notaFiscal.getNumero();
@@ -32,9 +33,6 @@ public class NotaFiscalDto {
 
     }
 
-    public NotaFiscalDto(NotaFiscal notaFiscal) {
-
-    }
     public Long getId() {
         return id;
     }

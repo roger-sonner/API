@@ -16,6 +16,16 @@ public class ItemNotaFiscal {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private NotaFiscal notaFiscal;
 
+    public ItemNotaFiscal() {
+    }
+
+    public ItemNotaFiscal(Double quantidade, Integer sequencial, NotaFiscal notaFiscal, Produto produto) {
+        this.quantidade = quantidade;
+        this.sequencial = sequencial;
+        this.notaFiscal = notaFiscal;
+        this.produto = produto;
+    }
+
     public Long getId() {
         return id;
     }
@@ -59,11 +69,6 @@ public class ItemNotaFiscal {
         return valorTotal;
     }
 
-    public void setValorTotal() {
-        this.valorTotal = produto
-                .getValorUnitario()
-                .multiply(new BigDecimal(this.quantidade));
-    }
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;

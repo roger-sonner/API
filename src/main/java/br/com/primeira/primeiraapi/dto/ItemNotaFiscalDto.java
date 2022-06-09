@@ -1,5 +1,6 @@
 package br.com.primeira.primeiraapi.dto;
 
+import br.com.primeira.primeiraapi.model.ItemNotaFiscal;
 import br.com.primeira.primeiraapi.model.NotaFiscal;
 import br.com.primeira.primeiraapi.model.Produto;
 
@@ -12,6 +13,30 @@ public class ItemNotaFiscalDto {
     private BigDecimal valorTotal;
     private Long notaFiscal;
     private Long produto;
+
+    public ItemNotaFiscalDto() {
+    }
+
+    public ItemNotaFiscalDto(ItemNotaFiscal itemNotaFiscal) {
+    }
+
+    public ItemNotaFiscalDto(NotaFiscal notaFiscal, Produto produto) {
+        this.id = getId();
+        this.quantidade = getQuantidade();
+        this.sequencial = getSequencial();
+        this.valorTotal = getValorTotal();
+        this.notaFiscal = notaFiscal.getId();
+        this.produto = produto.getId();
+    }
+
+    public ItemNotaFiscalDto(ItemNotaFiscal itemNotaFiscal, Produto produto, NotaFiscal notaFiscal) {
+        this.id = getId();
+        this.quantidade = itemNotaFiscal.getQuantidade();
+        this.sequencial = itemNotaFiscal.getSequencial();
+        this.valorTotal = itemNotaFiscal.getValorTotal();
+        this.notaFiscal = notaFiscal.getId();
+        this.produto = produto.getId();
+    }
 
     public Long getId() {
         return id;
@@ -60,6 +85,4 @@ public class ItemNotaFiscalDto {
     public void setProduto(Long produto) {
         this.produto = produto;
     }
-
-
 }
