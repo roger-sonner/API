@@ -1,41 +1,43 @@
 # 1-API-Rest-Spring
 
-# O application.properties esta pré configurado para MySQL 
-# Criar o Bando de dados manualmente (CREATE DATABASE primeiraapi;)
+## O application.properties esta pré configurado para MySQL 
+## Criar o Bando de dados manualmente (CREATE DATABASE primeiraapi;)
 
 
 
-# Instruções
-# Para Get de todos os clientes usar a URl de modelo abaixo:
+## Instruções
+### CLIENTES
+#### Para Get de todos os clientes usar a URl de modelo abaixo:
 http://localhost:8080/clientes
 **************************************************************************************************
-# Para Get de determinado o cliente usar a URl de modelo abaixo:
+#### Para Get de determinado o cliente usar a URl de modelo abaixo:
 http://localhost:8080/clientes/1
 **************************************************************************************************
-# Para Post de Clientes usar o modelo de JSON abaixo
+#### Para Post de Clientes usar o modelo de JSON abaixo
 {
     "codigo":"3",
     "nome":"Cliente Inserido via Postman 3"
 }
 http://localhost:8080/cliente
 **************************************************************************************************
-# Para Put de Clientes usar o modelo de JSON abaixo
+#### Para Put de Clientes usar o modelo de JSON abaixo
 {
     "nome":"Cliente Atualizado via Postman 3"
 }
 Obs: Incluir na URL o ID do cliente a ser alterado - Exemplo: URL: http://localhost:8080/clientes/7
 **************************************************************************************************
-# Para Delete de clientes usar a URl de modelo abaixo:
+#### Para Delete de clientes usar a URl de modelo abaixo:
 http://localhost:8080/clientes/7
 Obs: Incluir na URL o ID do cliente a ser deletado - Exemplo: URL: http://localhost:8080/cliente/7
 **************************************************************************************************
-# Para Get de todos os produtos usar a URl de modelo abaixo:
+### PRODUTOS
+#### Para Get de todos os produtos usar a URl de modelo abaixo:
 URL: http://localhost:8080/produtos
 **************************************************************************************************
-# Para Get de determinado produto usar a URl de modelo abaixo:
+#### Para Get de determinado produto usar a URl de modelo abaixo:
 URL: http://localhost:8080/produtos/1
 **************************************************************************************************
-# Para Post de Produto usar o modelo de JSON abaixo
+#### Para Post de Produto usar o modelo de JSON abaixo
 {
    "codigo": 123456,
     "descricao":"Produto Inserido via Postman",
@@ -43,7 +45,7 @@ URL: http://localhost:8080/produtos/1
 }
 URL: http://localhost:8080/produtos
 **************************************************************************************************
-# Para Put de Produto usar o modelo de JSON abaixo
+#### Para Put de Produto usar o modelo de JSON abaixo
 {
     "descricao":"Produto Alterado via Postman",
     "valorUnitario": 99.00
@@ -51,18 +53,19 @@ URL: http://localhost:8080/produtos
 
 Obs: Incluir na URL o ID do produto a ser alterado - Exemplo: URL: http://localhost:8080/produtos/7
 **************************************************************************************************
-# Para Delete de produtos usar a URl de modelo abaixo:
+#### Para Delete de produtos usar a URl de modelo abaixo:
 http://localhost:8080/produtos/7
 Obs: Incluir na URL o ID do produto a ser deletado - Exemplo: URL: http://localhost:8080/produtos/7
 O produto não será deletado caso existe referência na tabela de Itens de Notas Fiscais
 **************************************************************************************************
-# Para Get de todas as notas fiscais usar a URl de modelo abaixo:
+### NOTAS FISCAIS
+#### Para Get de todas as notas fiscais usar a URl de modelo abaixo:
 URL: http://localhost:8080/notasFiscais
 **************************************************************************************************
-# Para Get de uma determinada nota fiscal usar a URl de modelo abaixo:
+#### Para Get de uma determinada nota fiscal usar a URl de modelo abaixo:
 URL: http://localhost:8080/notasFiscais/1
 **************************************************************************************************
-# Para Post de Nota Fiscal usar o modelo de JSON abaixo
+#### Para Post de Nota Fiscal usar o modelo de JSON abaixo
 {
     "data":"2022-06-09",
     "numero":123456,
@@ -70,7 +73,7 @@ URL: http://localhost:8080/notasFiscais/1
 }
 URL: http://localhost:8080/notasFiscais
 **************************************************************************************************
-# Para Put de Nota Fiscal usar o modelo de JSON abaixo
+#### Para Put de Nota Fiscal usar o modelo de JSON abaixo
 {
     "data":"2022-01-01",
     "clienteId":3
@@ -78,7 +81,7 @@ URL: http://localhost:8080/notasFiscais
 
 Obs: Incluir na URL o ID da Nota Fiscal a ser alterada - Exemplo: URL: http://localhost:8080/notasFiscais/1
 **************************************************************************************************
-# Para Delete de Nota Fiscal usar a URl de modelo abaixo:
+#### Para Delete de Nota Fiscal usar a URl de modelo abaixo:
 
 http://localhost:8080/notasFiscais/7
 
@@ -86,7 +89,8 @@ Obs:
 1) Incluir na URL o ID da Nota Fiscal a ser deletada - Exemplo: URL: http://localhost:8080/notasFiscais/6
 2) Os produtos constantes na tabela de itens de notas fiscais, também serão deletados
 **************************************************************************************************
-# Para Post de Itens de Notas Fiscais usar o modelo de JSON abaixo 
+### ITENS DE NOTAS FISCAIS
+#### Para Post de Itens de Notas Fiscais usar o modelo de JSON abaixo 
 {
     "produtoId": 8,
     "notaFiscalId": 1,
@@ -102,7 +106,7 @@ Lógica implementada:
 produto constante na tabela de produtos.
 3) Caso a quantidade informada seja <= 0 ou null, será atribuida a quantidade = 1.
 **************************************************************************************************
-# Para Put de Itens de Notas Fiscais usar o modelo de JSON abaixo
+#### Para Put de Itens de Notas Fiscais usar o modelo de JSON abaixo
 {
     "itemNotaFiscalId": 1,
     "quantidade": 3000,
@@ -121,7 +125,7 @@ Lógica implementada:
 produto constante na tabela de produtos.
 
 **************************************************************************************************
-# Para Delete de Itens de Notas Fiscais usar a URl de modelo abaixo:
+#### Para Delete de Itens de Notas Fiscais usar a URl de modelo abaixo:
 
 http://localhost:8080/itensNotaFiscal/6
 
