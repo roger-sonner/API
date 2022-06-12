@@ -34,24 +34,6 @@ public class ItemNotaFiscalController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    @GetMapping
-    public List<ItemNotaFiscal> getItensNotasFiscais() {
-        List<ItemNotaFiscal> itemNotaFiscal = itemNotaFiscalRepository.findAll();
-
-        return itemNotaFiscal;
-    }
-
-    @GetMapping("/{id}")  // @PathVariable indica que o parametro vem na url
-    public ResponseEntity<ItemNotaFiscal> getItemNotaFiscal(@PathVariable Long id) {  // o parametro no GetMapping deve ter o mesmo do método (ex: sgetCliente(Long id))
-
-        Optional<ItemNotaFiscal> optional = itemNotaFiscalRepository.findByNotaFiscalId(id);
-        if (!optional.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(optional.get());
-    }
-
     @PostMapping
     @Transactional
     public ResponseEntity<ItemNotaFiscalDto> postItemNotaFiscal(@RequestBody @Valid ItemNotaFiscalForm form, UriComponentsBuilder uriBuilder) {
@@ -103,6 +85,8 @@ public class ItemNotaFiscalController {
             optionalProduto = produtoRepository.findById(produtoId);
         }
 
+        BigDecimal valorUnitario = optionalProduto.get().getValorUnitario();
+
         if((sequencial == null) || (sequencial <= 0)){
             sequencial = optionalItemNotaFiscal.get().getSequencial();
         }
@@ -114,7 +98,7 @@ public class ItemNotaFiscalController {
                 itemNotaFiscalRepository,
                 produtoRepository,
                 produtoId,
-                CalculaValorTotal(optionalProduto.get().getValorUnitario(), quantidade),
+                CalculaValorTotal(valorUnitario, quantidade),
                 sequencial,
                 quantidade);
         return ResponseEntity.ok(new ItemNotaFiscalDto(itemNotaFiscal));
