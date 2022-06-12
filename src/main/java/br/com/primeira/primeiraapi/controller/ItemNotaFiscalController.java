@@ -104,7 +104,6 @@ public class ItemNotaFiscalController {
         return ResponseEntity.ok(new ItemNotaFiscalDto(itemNotaFiscal));
     }
 
-
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deleteItemNotaFiscal(@PathVariable Long id) {
